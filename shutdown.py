@@ -1,17 +1,18 @@
-#! /usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+###
+# The Raspberry zero shutdown script when the battery is low
+#
 import RPi.GPIO as GPIO
-import os, sys, subprocess, time
+import os, subprocess, time
 
-# Shutdown commands needs SUDO, so is neceserly to start with sudo
-
-buttonPin = 37 # GPIO 26, Pin 37
 # The numbers printed on the board
 GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
 GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-pause = 10
-while True:
+def checkFunkc(interval, buttonPin):
+  while True:
   if (GPIO.input(buttonPin)):
     # GPIO is 0
     # print("GPIO is 0 ")
@@ -28,6 +29,19 @@ while True:
     exit()
   # Flush any buffers if ^C or interrupt is pressed.
   sys.stdout.flush()
-# Clean up GPIO handler on exit of the script.
-# Clean up is optional. If the system reboots it will clean up!
-# GPIO.cleanup()
+  
+
+def main(args):
+  # Deff which pit will be controlled
+  buttonPin = 37
+  # Time period to check
+  interval = 10
+  # Function to detect manipulation
+  checkFunkc(interval, buttonPin)
+
+  return 0
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main(sys.argv))
+

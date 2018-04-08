@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 import os, subprocess, time
 
 # Deff which pit will be controlled
-global buttonPin = 37
+buttonPin = 37
 # The numbers printed on the board
 GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
@@ -20,7 +20,7 @@ def checkFunkc(interval):
       # GPIO is 0
       # print("GPIO is 0 ")
       print("Time is %s " % (time.ctime()))
-      time.sleep(pause)
+      time.sleep(interval)
     else:
       # GPIO is 1. We are here because the sensors triggered the battery being low.
       print("Shutdown initiated at %s " % (time.ctime()))
@@ -36,7 +36,7 @@ def checkFunkc(interval):
 
 def main(args):
   # Time period to check
-  interval = 10
+  interval=10
   # Function to detect manipulation
   checkFunkc(interval)
 

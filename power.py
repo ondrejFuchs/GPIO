@@ -20,22 +20,22 @@ logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S
 def checkFunkc():
   global buttonPin
   global interval
-  stateOld = 1
-  stateNow = 1
+  stateOld = 0
+  stateNow = 0
   while True:
     stateOld = stateNow 
     if (GPIO.input(buttonPin)):
       # GPIO is 0
       stateNow = 0
       if stateNow != stateOld:
-        logging.debug('Changing the power to battery')
+        logging.debug('Changing the power to adapter')
         print("GPIO is 0")
       time.sleep(interval)
     else:
       # GPIO is 1
       stateNow = 1
       if stateNow != stateOld:
-        logging.debug('Changing the power to adapter')
+        logging.debug('Changing the power to battery')
         print("GPIO is 1")
       #logging.debug('This message should go to the log file')
       time.sleep(interval)

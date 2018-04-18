@@ -35,8 +35,9 @@ def checkFunkc():
       counter += 1
       print("Box is open")
       if counter > threshold:
-            logging.debug('Box is open')
-            print("ALARM")
+          logging.debug('Box is open')
+          print("ALARM")
+          counter = 0
       #logging.debug('This message should go to the log file')
       time.sleep(interval)
   

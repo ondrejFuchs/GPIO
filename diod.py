@@ -17,7 +17,7 @@ GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
 GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # Set format for loggin
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S',filename='/var/log/power.log',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S',filename='/var/log/diod.log',level=logging.DEBUG)
 
 def checkFunkc():
   global buttonPin

@@ -29,14 +29,14 @@ def checkFunkc():
       stateNow = 0
       if stateNow != stateOld:
         logging.debug('Changing the power to adapter')
-        print("GPIO is 0")
+        print("Power by adapter")
       time.sleep(interval)
     else:
       # GPIO is 1
       stateNow = 1
       if stateNow != stateOld:
         logging.debug('Changing the power to battery')
-        print("GPIO is 1")
+        print("Power by battery")
       #logging.debug('This message should go to the log file')
       time.sleep(interval)
      

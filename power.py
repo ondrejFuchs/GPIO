@@ -10,6 +10,8 @@ import os, subprocess, time, logging
 buttonPin = 36
 # Interval to check
 interval = 1
+# Threshold of positive check
+threshold = 60
 # The numbers printed on the board
 GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
@@ -20,12 +22,15 @@ logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S
 def checkFunkc():
   global buttonPin
   global interval
+  global threshold
   stateOld = 0
   stateNow = 0
+  counter = 0
   while True:
     stateOld = stateNow 
     if (GPIO.input(buttonPin)):
       # GPIO is 0
+      counter = 0
       stateNow = 0
       if stateNow != stateOld:
         logging.debug('Changing the power to adapter')
@@ -33,10 +38,19 @@ def checkFunkc():
       time.sleep(interval)
     else:
       # GPIO is 1
+      counter += 1
       stateNow = 1
       if stateNow != stateOld:
         logging.debug('Changing the power to battery')
         print("Power by battery")
+      # After 60 sec shutdown  
+      if counter > threshold:
+        subprocess.call("shutdown -h now &", shell=True)
+        counter = 0  
+        # Flush any stdout messages before exiting..
+        sys.stdout.flush()
+        # exit the while monitoring loop.
+        exit()
       #logging.debug('This message should go to the log file')
       time.sleep(interval)
      

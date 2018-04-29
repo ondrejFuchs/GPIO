@@ -16,8 +16,6 @@ threshold = 60
 GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
 GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-# Set format for loggin
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S',filename='/var/log/power.log',level=logging.DEBUG)
 
 def checkFunkc():
   global buttonPin
@@ -45,6 +43,7 @@ def checkFunkc():
         print("Power by battery")
       # After 60 sec shutdown  
       if counter > threshold:
+        #TODO: Vypnout nahrávání !!!
         subprocess.call("shutdown -h now &", shell=True)
         counter = 0  
         # Flush any stdout messages before exiting..
@@ -56,9 +55,14 @@ def checkFunkc():
      
   
 def main(args):
-  # Make log file
+  # Remove or make log file 
   if not os.path.exists('/var/log/power.log'):
     os.mknod('/var/log/power.log')
+  else:
+    os.remove('/var/log/power.log')
+    os.mknod('/var/log/power.log')  
+  # Set format for loggin
+  logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S',filename='/var/log/power.log',level=logging.DEBUG)  
   # Function to detect manipulation
   checkFunkc()
 

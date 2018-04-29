@@ -16,8 +16,6 @@ threshold = 5
 GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
 GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-# Set format for loggin
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S',filename='/var/log/diod.log',level=logging.DEBUG)
 
 def checkFunkc():
   global buttonPin
@@ -43,9 +41,14 @@ def checkFunkc():
   
 
 def main(args):
-  # Make log file
+  # Remove or make log file 
   if not os.path.exists('/var/log/diod.log'):
     os.mknod('/var/log/diod.log')
+  else:
+    os.remove('/var/log/diod.log')
+    os.mknod('/var/log/diod.log')  
+  # Set format for loggin
+  logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d_%H-%M-%S',filename='/var/log/diod.log',level=logging.DEBUG)  
   # Function to detect manipulation
   checkFunkc()
 

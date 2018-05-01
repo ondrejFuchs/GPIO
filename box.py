@@ -15,7 +15,7 @@ threshold = 5
 # The numbers printed on the board
 GPIO.setmode(GPIO.BOARD)
 # Use the pull up i.e. expect output to be zero. When it goes to 1, GPIO is set.
-GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 def checkFunkc():
   global buttonPin

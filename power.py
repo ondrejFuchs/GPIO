@@ -24,35 +24,38 @@ def checkFunkc():
   stateOld = 0
   stateNow = 0
   counter = 0
-  while True:
-    stateOld = stateNow 
-    if (GPIO.input(buttonPin)):
-      # GPIO is 0
-      counter = 0
-      stateNow = 0
-      if stateNow != stateOld:
-        logging.debug('Changing the power to adapter')
-        print("Power by adapter")
-      time.sleep(interval)
-    else:
-      # GPIO is 1
-      counter += 1
-      stateNow = 1
-      if stateNow != stateOld:
-        logging.debug('Changing the power to battery')
-        print("Power by battery")
-      # After 60 sec shutdown  
-      if counter > threshold:
-        #TODO: Vypnout nahrávání !!!
-        subprocess.call("shutdown -h now &", shell=True)
-        counter = 0  
-        # Flush any stdout messages before exiting..
-        sys.stdout.flush()
-        # exit the while monitoring loop.
-        exit()
-      #logging.debug('This message should go to the log file')
-      time.sleep(interval)
-     
+  try:
+    while True:
+      stateOld = stateNow 
+      if (GPIO.input(buttonPin)):
+        # GPIO is 0
+        counter = 0
+        stateNow = 0
+        if stateNow != stateOld:
+          logging.debug('Changing the power to adapter')
+          print("Power by adapter")
+        time.sleep(interval)
+      else:
+        # GPIO is 1
+        counter += 1
+        stateNow = 1
+        if stateNow != stateOld:
+          logging.debug('Changing the power to battery')
+          print("Power by battery")
+        # After 60 sec shutdown  
+        if counter > threshold:
+          #TODO: Vypnout nahrávání !!!
+          subprocess.call("shutdown -h now &", shell=True)
+          counter = 0  
+          # Flush any stdout messages before exiting..
+          sys.stdout.flush()
+          # exit the while monitoring loop.
+          exit()
+        #logging.debug('This message should go to the log file')
+        time.sleep(interval)
+  except KeyboardInterrupt: 
+    logging.debug('Interrupted')
+    sys.exit(0)    
   
 def main(args):
   # Remove or make log file 

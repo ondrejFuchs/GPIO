@@ -43,9 +43,9 @@ def checkFunkc():
         print("Power by battery")
       # After 60 sec shutdown  
       if counter > threshold:
-        #TODO: Vypnout nahrávání !!!
-        subprocess.call("shutdown -h now &", shell=True)
-        counter = 0  
+	#sudo systemctl stop recording
+        #subprocess.call("shutdown -h now &", shell=True)
+        #counter = 0  
         # Flush any stdout messages before exiting..
         sys.stdout.flush()
         # exit the while monitoring loop.

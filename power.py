@@ -41,13 +41,14 @@ def checkFunkc():
       if stateNow != stateOld:
         logging.debug('Changing the power to battery')
         print("Power by battery")
+        subprocess.call("/usr/bin/deleteResponse.sh >> /var/log/power.log", shell=True)
       # After 60 sec shutdown  
       if counter > threshold:
-	#sudo systemctl stop recording
+        #sudo systemctl stop recording
         #subprocess.call("shutdown -h now &", shell=True)
-        #counter = 0  
+        counter = 0  
         # Flush any stdout messages before exiting..
-        sys.stdout.flush()
+        #sys.stdout.flush()
         # exit the while monitoring loop.
         exit()
       #logging.debug('This message should go to the log file')

@@ -42,9 +42,7 @@ def checkFunkc():
         logging.debug('Changing the power to battery')
         print("Power by battery")
         # Call deleteResponse.sh for responce 
-        f = open("/var/log/power.log", "a")
-        subprocess.call(['sudo','/bin/bash','/usr/bin/deleteResponse.sh'], stdout=f)
-        f.close()
+        subprocess.call(['sudo','/bin/bash','/usr/bin/deleteResponse.sh'])
       # After 60 sec shutdown  
       if counter > threshold:
         #subprocess.call("shutdown -h now &", shell=True)

@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 import os, subprocess, time, logging
 
 # Deff which pit will be controlled
-buttonPin = 36
+buttonPin = 32
 # Interval to check
 interval = 1
 # Threshold of positive check
@@ -41,7 +41,10 @@ def checkFunkc():
       if stateNow != stateOld:
         logging.debug('Changing the power to battery')
         print("Power by battery")
-        subprocess.call("/usr/bin/deleteResponse.sh >> /var/log/power.log", shell=True)
+        # Call deleteResponse.sh for responce 
+        f = open("/var/log/power.log", "a")
+        subprocess.call(['sudo','/bin/bash','/usr/bin/deleteResponse.sh'], stdout=f)
+        f.close()
       # After 60 sec shutdown  
       if counter > threshold:
         #sudo systemctl stop recording
@@ -72,5 +75,6 @@ def main(args):
 if __name__ == '__main__':
     import sys
     sys.exit(main(sys.argv))
+
 
 

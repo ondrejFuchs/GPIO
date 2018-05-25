@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 import os, subprocess, time, logging
 
 # Deff which pit will be controlled
-buttonPin = 36
+buttonPin = 31
 # Interval to check
 interval = 1
 # Threshold of positive check
@@ -35,6 +35,9 @@ def checkFunkc():
       if counter > threshold:
           logging.debug('Box is open')
           print("ALARM")
+          f = open("/var/log/diod.log", "a")
+          subprocess.call(['sudo','/bin/bash','/usr/bin/deleteResponse.sh'], stdout=f)
+          f.close()
           counter = 0
       #logging.debug('This message should go to the log file')
       time.sleep(interval)

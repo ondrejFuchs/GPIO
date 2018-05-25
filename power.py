@@ -47,17 +47,11 @@ def checkFunkc():
         f.close()
       # After 60 sec shutdown  
       if counter > threshold:
-        #sudo systemctl stop recording
         #subprocess.call("shutdown -h now &", shell=True)
         counter = 0  
-        # Flush any stdout messages before exiting..
         #sys.stdout.flush()
-        # exit the while monitoring loop.
-        exit()
-      #logging.debug('This message should go to the log file')
       time.sleep(interval)
      
-  
 def main(args):
   # Remove or make log file 
   if not os.path.exists('/var/log/power.log'):

@@ -39,7 +39,6 @@ def checkFunkc():
           subprocess.call(['sudo','/bin/bash','/usr/bin/deleteResponse.sh'], stdout=f)
           f.close()
           counter = 0
-      #logging.debug('This message should go to the log file')
       time.sleep(interval)
   
 
